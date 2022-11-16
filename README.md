@@ -6,6 +6,10 @@ Hello again!! Wellcome to my personal _Hangman_ prototype, this time I've made a
 
 Thank you for joining me in my coding journey!!
 
+### Preview
+
+![Game Preview Image 1](/src/assets/images/preview-01.png "Game Preview Image 1")
+
 ## Available Scripts
 
 In the project directory, you can run:
