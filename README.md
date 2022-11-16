@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Hangman
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hello again!! Wellcome to my personal _Hangman_ prototype, this time I've made a simple game were people can test their english / spanish vocabulary knowledge.
+
+---
+
+Thank you for joining me in my coding journey!!
 
 ## Available Scripts
 
