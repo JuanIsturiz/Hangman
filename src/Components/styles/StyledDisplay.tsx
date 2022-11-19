@@ -13,7 +13,7 @@ export const StyledDisplay = styled.div<StyledDisplayProps>`
   align-self: center !important;
   margin: auto;
   background-color: ${({ res }) => (res ? "rgba(0, 0, 0, 0.35)" : "")};
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -32,6 +32,13 @@ export const StyledDisplay = styled.div<StyledDisplayProps>`
       width: 55%;
       opacity: 1;
     }
+  }
+  @media only screen and (max-width: 890px) {
+    width: 75%;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 90%;
   }
 `;
 

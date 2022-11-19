@@ -16,7 +16,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+@media only screen and (max-width: 890px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 10px;
+  }
+}
 `;
 
 export default GlobalStyles;

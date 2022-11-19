@@ -20,6 +20,12 @@ export const StyledKeyboard = styled.div`
       transform: translateY(0);
     }
   }
+  @media only screen and (max-width: 1090px) {
+    width: 90%;
+  }
+  @media only screen and (max-width: 480px) {
+    width: 90%;
+  }
 `;
 
 interface KeyProps {

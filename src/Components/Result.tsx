@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { ResultContainer } from "./styles/ResultContainer";
 
 interface ResultProps {
@@ -5,37 +6,41 @@ interface ResultProps {
   result: string;
   lang: string;
   onNewWord: () => void;
+  play: boolean;
 }
 
-const setResultStrings = (lang: string, res: string) => {
-  if (lang === "english") {
-    return {
-      text1: res === "" ? "" : res === "loss" ? `You lose` : `You won`,
-      text2: res === "won" ? "Next Word" : "Try Againg?",
-    };
-  }
-  if (lang === "spanish") {
-    return {
-      text1: res === "" ? "" : res === "loss" ? `Perdiste` : `Ganaste`,
-      text2: res === "won" ? "Siguiente Palabra" : "Intentarlo de nuevo",
-    };
-  }
+const Result = ({ condition, result, lang, onNewWord, play }: ResultProps) => {
+  const [resHeader, setResHeader] = useState("");
+  const [resButton, setResButton] = useState("");
 
-  return {
-    text1: "",
-    text2: "",
-  };
-};
+  useEffect(() => {
+    if (result === "" && !play) {
+      setTimeout(() => {
+        setResHeader("");
+        setResButton("");
+      }, 2000);
+    }
 
-const Result = ({ condition, result, lang, onNewWord }: ResultProps) => {
+    if (lang === "english" && play) {
+      setResHeader(result === "loss" ? `You lose` : `You won`);
+      setResButton(result === "won" ? "Next Word" : "Try Againg?");
+      return;
+    }
+    if (lang === "spanish" && play) {
+      setResHeader(result === "loss" ? `Perdiste` : `Ganaste`);
+      setResButton(
+        result === "won" ? "Siguiente Palabra" : "Intentarlo de nuevo"
+      );
+      return;
+    }
+  }, [lang, result, play]);
+
   return (
     <>
       {condition && (
         <ResultContainer res={result}>
-          <h2>{setResultStrings(lang, result).text1}</h2>
-          <button onClick={onNewWord}>
-            {setResultStrings(lang, result).text2}
-          </button>
+          <h2>{resHeader}</h2>
+          <button onClick={onNewWord}>{resButton}</button>
         </ResultContainer>
       )}
     </>

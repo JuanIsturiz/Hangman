@@ -8,7 +8,8 @@ export const ResultContainer = styled.div<ResultContainerProps>`
   opacity: ${({ res }) => (res === "" ? 0 : 1)};
   width: 29rem;
   margin: 0 auto;
-  margin-top: 8rem;
+  margin-top: 6rem;
+  margin-bottom: 1.5rem;
   border-radius: 0.3rem;
   display: flex;
   flex-direction: column;
@@ -16,6 +17,7 @@ export const ResultContainer = styled.div<ResultContainerProps>`
   transition: opacity 1s linear;
   transition-delay: 0.5s;
   pointer-events: ${({ res }) => (res === "" ? "none" : "auto")};
+
   h2 {
     color: #fff;
     font-size: 3rem;
@@ -26,6 +28,8 @@ export const ResultContainer = styled.div<ResultContainerProps>`
     animation-delay: 0.5s;
   }
   button {
+    width: 15rem;
+    height: 3rem;
     cursor: ${({ res }) => (res ? "pointer" : "")};
     font-size: 1.25rem;
     color: #fff;
@@ -51,5 +55,12 @@ export const ResultContainer = styled.div<ResultContainerProps>`
     100% {
       scale: 1;
     }
+  }
+
+  @media only screen and (max-width: 890px) {
+    margin-top: 6.5rem;
+  }
+  @media only screen and (max-width: 480px) {
+    margin-top: 8rem;
   }
 `;

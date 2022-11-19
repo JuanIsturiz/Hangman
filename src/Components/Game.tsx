@@ -119,7 +119,9 @@ const Game = () => {
     setGuesses("");
     setLivesIcons(Array(8).fill(true));
     setResult("");
-    setPlay(true);
+    setTimeout(() => {
+      setPlay(true);
+    }, 1000);
   };
 
   return (
@@ -142,6 +144,7 @@ const Game = () => {
             result={result}
             lang={language}
             onNewWord={handleNewWord}
+            play={play}
           />
         </div>
         <Keyboard
