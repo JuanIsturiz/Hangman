@@ -22,6 +22,17 @@ export const StyledDisplay = styled.div<StyledDisplayProps>`
   text-transform: uppercase;
   transition: top 750ms ease-in-out;
   transition-delay: 750ms;
+  animation: intro 1s ease-out;
+  @keyframes intro {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 55%;
+      opacity: 1;
+    }
+  }
 `;
 
 interface LetterContainerProps {

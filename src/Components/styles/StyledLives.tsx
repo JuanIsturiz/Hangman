@@ -13,6 +13,16 @@ export const StyledLives = styled.div<StyledLivesProps>`
   margin-bottom: 2rem;
   opacity: ${({ lives }) => (lives < 1 ? 0 : 1)};
   transition: opacity 750ms linear;
+  animation: fade 1s ease-out;
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 interface LifeProps {

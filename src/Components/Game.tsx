@@ -1,7 +1,3 @@
-/* 
-  todo add play again and language features
-*/
-
 import { useEffect, useState } from "react";
 import Display from "./Display";
 import Keyboard from "./Keyboard";
@@ -9,11 +5,15 @@ import Lives from "./Lives";
 import Result from "./Result";
 import { getRandomWord } from "../utils/getRandomWord";
 import { GameContainer } from "./styles/GameContainer";
+import Options from "./Options";
+import Home from "./Home";
+import { useKey } from "../utils/useKey";
 
 const Game = () => {
+  const [language, setLanguage] = useState<string>("");
   const [play, setPlay] = useState<boolean>(false);
   const [word, setWord] = useState<string>("");
-  const [answer, setAnswer] = useState<Array<string>>(["", "", "", "", "", ""]);
+  const [answer, setAnswer] = useState<Array<string>>(Array(6).fill(""));
   const [lives, setLives] = useState<number>(8);
   const [guesses, setGuesses] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -21,20 +21,24 @@ const Game = () => {
     Array(8).fill(true)
   );
 
+  useKey(handleKeydown, guesses);
+
   useEffect(() => {
-    const word = getRandomWord();
+    if (!language) {
+      setWord("");
+      setAnswer(Array(6).fill(""));
+      setLives(8);
+      setGuesses("");
+      setResult("");
+      setLivesIcons(Array(8).fill(true));
+      setPlay(false);
+      return;
+    }
+    const word = getRandomWord(language);
     setWord(word);
     setAnswer(Array(word.length).fill(""));
     setPlay(true);
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("keypress", handleKeydown);
-
-    return () => {
-      document.removeEventListener("keypress", handleKeydown);
-    };
-  }, [play, guesses]);
+  }, [language]);
 
   useEffect(() => {
     if (lives < 1) {
@@ -42,7 +46,7 @@ const Game = () => {
       setAnswer(word.split(""));
       setTimeout(() => setPlay(false), 1000);
     }
-  }, [lives]);
+  }, [word, lives]);
 
   useEffect(() => {
     if (lives < 1 || !play) return;
@@ -50,13 +54,18 @@ const Game = () => {
       setResult("won");
       setTimeout(() => setPlay(false), 1000);
     }
-  }, [word, answer, play]);
+  }, [lives, word, answer, play]);
 
-  const handleKeydown = (e: KeyboardEvent): void => {
+  function handleKeydown(e: KeyboardEvent): void {
     if (!play) return;
-    const letter = e.key;
+    const letter = e.key.toLowerCase();
     console.log(letter);
-    if (guesses.includes(letter) || letter === "Enter" || !/[a-z]/.test(letter))
+    if (
+      !language ||
+      guesses.includes(letter) ||
+      letter === "Enter" ||
+      !/[a-z]/.test(letter)
+    )
       return;
     setGuesses((prev) => prev + letter);
     if (!word.includes(letter)) {
@@ -64,10 +73,9 @@ const Game = () => {
       return;
     }
     correctGuess(letter);
-  };
+  }
 
   const wrongGuess = () => {
-    console.log("wrong!!");
     setLives((prev) => prev - 1);
     setLivesIcons((prev) => {
       const lastTrue = prev.lastIndexOf(true);
@@ -77,7 +85,6 @@ const Game = () => {
   };
 
   const correctGuess = (letter: string) => {
-    console.log("correct!!");
     const wordArr = word.split("");
     wordArr.forEach((lttr, idx) => {
       if (lttr === letter) {
@@ -104,9 +111,25 @@ const Game = () => {
     correctGuess(letter);
   };
 
+  const handleNewWord = () => {
+    const newWord = getRandomWord(language);
+    setWord(newWord);
+    setAnswer(Array(newWord.length).fill(""));
+    setLives(8);
+    setGuesses("");
+    setLivesIcons(Array(8).fill(true));
+    setResult("");
+    setPlay(true);
+  };
+
   return (
     <>
-      <GameContainer>
+      <GameContainer lang={language}>
+        <Options
+          condition={language === ""}
+          onLang={(lang) => setLanguage(lang)}
+        />
+
         <div>
           <Lives
             remaining={livesIcons}
@@ -114,10 +137,20 @@ const Game = () => {
             lives={lives}
           />
           <Display answer={answer} condition={!!word} result={result} />
-          {/* <Result condition={!!result} result={result} word={word} /> */}
+          <Result
+            condition={!!language}
+            result={result}
+            lang={language}
+            onNewWord={handleNewWord}
+          />
         </div>
-        <Keyboard guesses={guesses} onClick={handleClick} />
+        <Keyboard
+          guesses={guesses}
+          onClick={handleClick}
+          condition={!!language}
+        />
       </GameContainer>
+      <Home onHome={() => setLanguage("")} condition={!!language} />
     </>
   );
 };

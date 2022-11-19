@@ -1,6 +1,8 @@
 # Hangman
 
-Hello again!! Wellcome to my personal _Hangman_ prototype, this time I've made a simple game were people can test their english / spanish vocabulary knowledge.
+Hello again!! Wellcome to my personal _Hangman_ prototype, this time I've made a simple game were people can test their english / spanish vocabulary knowledge. This time I've implemented a new skill using the _Styled Components_ library.
+
+For this project I used three extra libraries so for everything to work properly you'll have to run `npm install`
 
 ---
 
@@ -8,7 +10,11 @@ Thank you for joining me in my coding journey!!
 
 ### Preview
 
-![Game Preview Image 1](/src/assets/images/preview-01.png "Game Preview Image 1")
+![Game Preview Image 1](/src/assets/images/previews/preview-01.png "Game Preview Image 1")
+
+![Game Preview Image 2](/src/assets/images/previews/preview-02.png "Game Preview Image 2")
+
+![Game Preview Image 3](/src/assets/images/previews/preview-03.png "Game Preview Image 3")
 
 ## Available Scripts
 

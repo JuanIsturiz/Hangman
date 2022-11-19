@@ -7,6 +7,19 @@ export const StyledKeyboard = styled.div`
   justify-content: center;
   font-size: 2rem;
   gap: 2rem;
+  animation: slide 1s ease-out;
+
+  @keyframes slide {
+    0% {
+      transform: translateY(150%);
+    }
+    75% {
+      transform: translateY(-5%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 `;
 
 interface KeyProps {
